@@ -1279,6 +1279,40 @@
         letter-spacing: 2px;
         padding: 20px 0;
       }
+      .footer-meta {
+        display: block;
+      }
+      .footer-note {
+        margin-top: 8px;
+        display: block;
+        letter-spacing: 1px;
+        color: #a07800;
+      }
+      .footer-social {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+        letter-spacing: 1px;
+      }
+      .footer-social-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--blue);
+        text-decoration: none;
+        font-size: 11px;
+      }
+      .footer-social-link:hover {
+        color: var(--orange);
+      }
+      .footer-social-link svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
       @media (max-width: 600px) {
         .cover {
           padding: 28px 22px;
@@ -9320,17 +9354,30 @@
         </div>
       </article>
       <div class="footer">
-        NEET Physics · Class 11 · PYQ Master Cheatsheet · 2026 Edition · Built
-        for Top Rank<br />
-        <span
-          style="
-            margin-top: 8px;
-            display: block;
-            letter-spacing: 1px;
-            color: #a07800;
-          "
+        <span class="footer-meta"
+          >NEET Physics · Class 11 · PYQ Master Cheatsheet · 2026 Edition · Built
+          for Top Rank</span
+        >
+        <span class="footer-note"
           >▸ CLASS 12 MODERN PHYSICS & OPTICS CHEATSHEET COMING SOON ▸</span
         >
+        <div class="footer-social">
+          <span>Copyright &copy; 2026</span>
+          <a
+            class="footer-social-link"
+            href="https://www.instagram.com/homosapiennnnnnnnnnnnnnnnn?igsh=MWtnaTdqN21lMGJwOQ=="
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram profile for homosapiennnnnnnnnnnnnnnnn"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.55 1.65a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"
+              />
+            </svg>
+            <span>@homosapiennnnnnnnnnnnnnnnn</span>
+          </a>
+        </div>
       </div>
     </div>
     <!-- end .book -->

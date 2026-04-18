@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/neet-physics-11-fixed_copy.html"
+    }
+  ]
+}

@@ -322,7 +322,7 @@
         font-family: var(--body);
         color: var(--ink);
         min-height: 100vh;
-        padding: 24px 16px 64px;
+        padding: 24px 16px 116px;
       }
       .book {
         max-width: 920px;
@@ -1278,6 +1278,7 @@
         color: #7a6a50;
         letter-spacing: 2px;
         padding: 20px 0;
+        margin-bottom: 16px;
       }
       .footer-meta {
         display: block;
@@ -1313,7 +1314,119 @@
         height: 16px;
         fill: currentColor;
       }
+      .sticky-copyright {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 12px 16px;
+        background: rgba(250, 247, 242, 0.96);
+        border-top: 1px solid rgba(122, 106, 80, 0.28);
+        box-shadow: 0 -10px 24px rgba(28, 21, 16, 0.12);
+        backdrop-filter: blur(10px);
+        font-family: var(--hand);
+        font-size: 10px;
+        letter-spacing: 1.4px;
+        color: #7a6a50;
+      }
+      [data-theme="dark"] .sticky-copyright {
+        background: rgba(26, 22, 18, 0.96);
+        border-top-color: rgba(212, 207, 196, 0.16);
+        box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.3);
+      }
+      .sticky-copyright-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--blue);
+        text-decoration: none;
+        font-size: 11px;
+      }
+      .sticky-copyright-link:hover {
+        color: var(--orange);
+      }
+      .sticky-copyright-link svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+      .security-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(28, 21, 16, 0.68);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+      .security-overlay-card {
+        max-width: 520px;
+        background: var(--paper2);
+        border: 2px solid var(--ink);
+        border-radius: 8px;
+        padding: 24px 28px;
+        text-align: center;
+        box-shadow: 0 24px 40px rgba(0, 0, 0, 0.28);
+      }
+      .security-overlay-card strong {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+      }
+      .security-overlay-card p {
+        font-family: var(--prose);
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--ink2);
+      }
+      .security-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 70px;
+        transform: translateX(-50%) translateY(14px);
+        z-index: 1700;
+        max-width: min(560px, calc(100vw - 32px));
+        padding: 11px 16px;
+        border-radius: 999px;
+        background: rgba(28, 21, 16, 0.92);
+        color: #faf7f2;
+        font-family: var(--hand);
+        font-size: 10px;
+        letter-spacing: 1.2px;
+        text-align: center;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease;
+      }
+      .security-toast.visible {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      body[data-devtools-open="true"] .book {
+        filter: blur(12px);
+        pointer-events: none;
+      }
+      body[data-devtools-open="true"] .security-overlay {
+        opacity: 1;
+        pointer-events: auto;
+      }
       @media (max-width: 600px) {
+        body {
+          padding: 18px 10px 128px;
+        }
         .cover {
           padding: 28px 22px;
         }
@@ -1352,6 +1465,19 @@
           gap: 8px;
           min-width: unset;
         }
+        .sticky-copyright {
+          gap: 8px;
+          padding: 10px 12px;
+        }
+        .security-overlay-card {
+          padding: 20px 18px;
+        }
+        .security-overlay-card strong {
+          font-size: 18px;
+        }
+        .security-overlay-card p {
+          font-size: 16px;
+        }
       }
       /* ═══ PRINT OPTIMIZATION ═══ */
       @media print {
@@ -1360,37 +1486,23 @@
           color: #000 !important;
           padding: 0 !important;
         }
-        .book {
-          max-width: 100% !important;
-          margin: 0 !important;
+        body::before {
+          content: "Printing is disabled for these protected notes.";
+          display: block;
+          padding: 48px 24px;
+          font-family: Georgia, serif;
+          font-size: 24px;
+          text-align: center;
         }
+        .book,
         #dm-toggle,
         .sol-reveal-btn,
         .fab-back-to-top,
-        .progress-bar {
+        .progress-bar,
+        .sticky-copyright,
+        .security-overlay,
+        .security-toast {
           display: none !important;
-        } /* Hide buttons */
-        .sol-content.hidden {
-          max-height: none !important;
-          opacity: 1 !important;
-          display: block !important;
-        } /* Force solutions to show */
-        .cover,
-        .chapter,
-        .how-box,
-        .toc {
-          box-shadow: none !important;
-          border: 1px solid #ccc !important;
-          break-inside: avoid;
-        }
-        .trick,
-        .warn-box,
-        .tip-box {
-          break-inside: avoid;
-        }
-        a {
-          text-decoration: none !important;
-          color: #000 !important;
         }
       }
 
@@ -9361,26 +9473,37 @@
         <span class="footer-note"
           >▸ CLASS 12 MODERN PHYSICS & OPTICS CHEATSHEET COMING SOON ▸</span
         >
-        <div class="footer-social">
-          <span>Copyright &copy; 2026</span>
-          <a
-            class="footer-social-link"
-            href="https://www.instagram.com/homosapiennnnnnnnnnnnnnnnn?igsh=MWtnaTdqN21lMGJwOQ=="
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram profile for homosapiennnnnnnnnnnnnnnnn"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path
-                d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.55 1.65a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"
-              />
-            </svg>
-            <span>@homosapiennnnnnnnnnnnnnnnn</span>
-          </a>
-        </div>
       </div>
     </div>
     <!-- end .book -->
+
+    <div class="security-overlay" id="security-overlay" aria-hidden="true">
+      <div class="security-overlay-card">
+        <strong>Protected Notes</strong>
+        <p>
+          Developer tools were detected. Close the inspection panel to view the
+          notes again.
+        </p>
+      </div>
+    </div>
+    <div class="security-toast" id="security-toast" aria-live="polite"></div>
+    <div class="sticky-copyright">
+      <span>Copyright &copy; 2026</span>
+      <a
+        class="sticky-copyright-link"
+        href="https://www.instagram.com/homosapiennnnnnnnnnnnnnnnn?igsh=MWtnaTdqN21lMGJwOQ=="
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram profile for homosapiennnnnnnnnnnnnnnnn"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.55 1.65a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"
+          />
+        </svg>
+        <span>@homosapiennnnnnnnnnnnnnnnn</span>
+      </a>
+    </div>
 
     <!-- Dark Mode Toggle Button -->
     <button id="dm-toggle" onclick="toggleDark()" title="Toggle dark mode">
@@ -9494,7 +9617,129 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
+      const securityToast = document.getElementById("security-toast");
+      let securityToastTimer;
+      let devtoolsOpen = false;
+
+      function showSecurityToast(message) {
+        if (!securityToast) return;
+        securityToast.textContent = message;
+        securityToast.classList.add("visible");
+        clearTimeout(securityToastTimer);
+        securityToastTimer = setTimeout(() => {
+          securityToast.classList.remove("visible");
+        }, 2200);
+      }
+
+      function isProtectedTarget(target) {
+        return !!(target && target.closest && target.closest(".book"));
+      }
+
+      function handleBlockedAction(event, message) {
+        event.preventDefault();
+        event.stopPropagation();
+        showSecurityToast(message);
+      }
+
+      function updateDevtoolsProtection() {
+        const shouldCheck = Math.max(window.innerWidth, window.innerHeight) > 900;
+        const widthGap = window.outerWidth - window.innerWidth > 220;
+        const heightGap = window.outerHeight - window.innerHeight > 220;
+        const detected = shouldCheck && (widthGap || heightGap);
+
+        document.body.setAttribute("data-devtools-open", detected ? "true" : "false");
+
+        if (detected && !devtoolsOpen) {
+          showSecurityToast("Developer tools detected. Notes are temporarily hidden.");
+        }
+
+        devtoolsOpen = detected;
+      }
+
+      document.addEventListener(
+        "contextmenu",
+        (event) => {
+          if (isProtectedTarget(event.target)) {
+            handleBlockedAction(event, "Right-click is disabled on these notes.");
+          }
+        },
+        true,
+      );
+
+      document.addEventListener(
+        "copy",
+        (event) => {
+          if (isProtectedTarget(event.target)) {
+            handleBlockedAction(event, "Copying is disabled on these notes.");
+          }
+        },
+        true,
+      );
+
+      document.addEventListener(
+        "cut",
+        (event) => {
+          if (isProtectedTarget(event.target)) {
+            handleBlockedAction(event, "Cutting is disabled on these notes.");
+          }
+        },
+        true,
+      );
+
+      document.addEventListener(
+        "dragstart",
+        (event) => {
+          if (isProtectedTarget(event.target)) {
+            handleBlockedAction(event, "Dragging content is disabled on these notes.");
+          }
+        },
+        true,
+      );
+
+      document.addEventListener(
+        "selectstart",
+        (event) => {
+          if (isProtectedTarget(event.target)) {
+            handleBlockedAction(event, "Text selection is disabled on these notes.");
+          }
+        },
+        true,
+      );
+
+      document.addEventListener(
+        "keydown",
+        (event) => {
+          const key = event.key.toLowerCase();
+          const ctrlOrMeta = event.ctrlKey || event.metaKey;
+          const blockedShortcut =
+            key === "f12" ||
+            (ctrlOrMeta && key === "u") ||
+            (ctrlOrMeta && key === "s") ||
+            (ctrlOrMeta && key === "p") ||
+            (ctrlOrMeta && key === "c") ||
+            (ctrlOrMeta && key === "x") ||
+            (ctrlOrMeta && event.shiftKey && ["i", "j", "c"].includes(key));
+
+          if (blockedShortcut) {
+            handleBlockedAction(
+              event,
+              "Protected mode is active. Inspect, copy, save, and print shortcuts are blocked.",
+            );
+          }
+        },
+        true,
+      );
+
+      window.addEventListener("beforeprint", () => {
+        showSecurityToast("Printing is disabled for these notes.");
+      });
+
+      window.addEventListener("resize", updateDevtoolsProtection, { passive: true });
+      setInterval(updateDevtoolsProtection, 1500);
+
       window.addEventListener("scroll", updateScrollUI, { passive: true });
+      updateScrollUI();
+      updateDevtoolsProtection();
     </script>
   </body>
 </html>

@@ -1415,6 +1415,17 @@
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
+      body.protected-page,
+      body.protected-page .book,
+      body.protected-page .book * {
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+      }
+      body.protected-page img,
+      body.protected-page svg {
+        -webkit-user-drag: none;
+      }
       body[data-devtools-open="true"] .book {
         filter: blur(12px);
         pointer-events: none;
@@ -9620,6 +9631,7 @@
       const securityToast = document.getElementById("security-toast");
       let securityToastTimer;
       let devtoolsOpen = false;
+      document.body.classList.add("protected-page");
 
       function showSecurityToast(message) {
         if (!securityToast) return;
@@ -9629,10 +9641,6 @@
         securityToastTimer = setTimeout(() => {
           securityToast.classList.remove("visible");
         }, 2200);
-      }
-
-      function isProtectedTarget(target) {
-        return !!(target && target.closest && target.closest(".book"));
       }
 
       function handleBlockedAction(event, message) {
@@ -9659,9 +9667,7 @@
       document.addEventListener(
         "contextmenu",
         (event) => {
-          if (isProtectedTarget(event.target)) {
-            handleBlockedAction(event, "Right-click is disabled on these notes.");
-          }
+          handleBlockedAction(event, "Right-click is disabled on this page.");
         },
         true,
       );
@@ -9669,9 +9675,7 @@
       document.addEventListener(
         "copy",
         (event) => {
-          if (isProtectedTarget(event.target)) {
-            handleBlockedAction(event, "Copying is disabled on these notes.");
-          }
+          handleBlockedAction(event, "Copying is disabled on this page.");
         },
         true,
       );
@@ -9679,9 +9683,7 @@
       document.addEventListener(
         "cut",
         (event) => {
-          if (isProtectedTarget(event.target)) {
-            handleBlockedAction(event, "Cutting is disabled on these notes.");
-          }
+          handleBlockedAction(event, "Cutting is disabled on this page.");
         },
         true,
       );
@@ -9689,9 +9691,7 @@
       document.addEventListener(
         "dragstart",
         (event) => {
-          if (isProtectedTarget(event.target)) {
-            handleBlockedAction(event, "Dragging content is disabled on these notes.");
-          }
+          handleBlockedAction(event, "Dragging content is disabled on this page.");
         },
         true,
       );
@@ -9699,9 +9699,7 @@
       document.addEventListener(
         "selectstart",
         (event) => {
-          if (isProtectedTarget(event.target)) {
-            handleBlockedAction(event, "Text selection is disabled on these notes.");
-          }
+          handleBlockedAction(event, "Text selection is disabled on this page.");
         },
         true,
       );
